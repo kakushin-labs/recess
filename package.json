@@ -1,5 +1,5 @@
 {
-  "name": "recess",
+  "name": "react-recess",
   "version": "0.0.1",
   "description": "Use SCSS like syntax to write React inline styles.",
   "main": "./recess.js",
@@ -8,9 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kakushin-tools/recess.git"
+    "url": "git+https://github.com/kakushin-tools/react-recess.git"
   },
   "keywords": [
+    "recess",
     "SCSS",
     "React",
     "inline",
@@ -20,9 +21,9 @@
   "author": "Nic Barker",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kakushin-tools/recess/issues"
+    "url": "https://github.com/kakushin-tools/react-recess/issues"
   },
-  "homepage": "https://github.com/kakushin-tools/recess#readme",
+  "homepage": "https://github.com/kakushin-tools/react-recess#readme",
   "dependencies": {
     "lodash.assignin": "^4.1.0",
     "lodash.foreach": "^4.4.1",
