@@ -23,11 +23,12 @@ const applyStyles = function (component, styles, reactInstance, parentNodeKey, c
     let aggregateStyle = {};
     let aggregateProps = {};
 
+    // Use a unique 'node key' to identify this node
+    const nodeKey = `${parentNodeKey ? parentNodeKey + '_' : ''}${component.props.className}_${childIndex}`;
+
     styleKeys.map((className) => {
         if (styles[className]) {
             let style = styles[className];
-            // Use a unique 'node key' to identify this node
-            const nodeKey = `${parentNodeKey ? parentNodeKey + '_' : ''}${className}_${childIndex}`;
             // If there is the special '@includes' key, merge in the styles from there
             if (style['@includes']) {
                 each(style['@includes'], (includedStyle) => {
@@ -88,27 +89,28 @@ const applyStyles = function (component, styles, reactInstance, parentNodeKey, c
                 }
             }
 
-            // Loop through any children and recursively apply matching styles
-            const children = [];
-            if (keys(style).length > 0) {
-                React.Children.map(component.props.children, (childComponent, index) => {
-                    if (React.isValidElement(childComponent)) {
-                        children.push(applyStyles(childComponent, style, reactInstance, nodeKey, index));
-                    } else if (typeof childComponent === 'string') {
-                        children.push(childComponent);
-                    }
-                });
-            }
-
-            if (children.length > 0) {
-                component = React.cloneElement(component, { children: children });
-            }
-
-            aggregateStyle = extend(aggregateStyle, style)
+            aggregateStyle = merge(aggregateStyle, style)
         }
     });
 
     const style = extend({}, aggregateStyle, inlineStyle || {});
+
+    // Loop through any children and recursively apply matching styles
+    const children = [];
+    if (keys(style).length > 0) {
+        React.Children.map(component.props.children, (childComponent, index) => {
+            if (React.isValidElement(childComponent)) {
+                children.push(applyStyles(childComponent, style, reactInstance, nodeKey, index));
+            } else if (typeof childComponent === 'string') {
+                children.push(childComponent);
+            }
+        });
+    }
+
+    if (children.length > 0) {
+        component = React.cloneElement(component, { children: children });
+    }
+
     component = React.cloneElement(component, extend(aggregateProps, { style: style }));
 
     return component;

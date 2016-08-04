@@ -46,12 +46,13 @@ var applyStyles = function applyStyles(component, styles, reactInstance, parentN
     var aggregateStyle = {};
     var aggregateProps = {};
 
+    // Use a unique 'node key' to identify this node
+    var nodeKey = '' + (parentNodeKey ? parentNodeKey + '_' : '') + component.props.className + '_' + childIndex;
+
     styleKeys.map(function (className) {
         if (styles[className]) {
             (function () {
                 var style = styles[className];
-                // Use a unique 'node key' to identify this node
-                var nodeKey = '' + (parentNodeKey ? parentNodeKey + '_' : '') + className + '_' + childIndex;
                 // If there is the special '@includes' key, merge in the styles from there
                 if (style['@includes']) {
                     (0, _lodash8.default)(style['@includes'], function (includedStyle) {
@@ -124,28 +125,29 @@ var applyStyles = function applyStyles(component, styles, reactInstance, parentN
                     })();
                 }
 
-                // Loop through any children and recursively apply matching styles
-                var children = [];
-                if ((0, _lodash6.default)(style).length > 0) {
-                    _react2.default.Children.map(component.props.children, function (childComponent, index) {
-                        if (_react2.default.isValidElement(childComponent)) {
-                            children.push(applyStyles(childComponent, style, reactInstance, nodeKey, index));
-                        } else if (typeof childComponent === 'string') {
-                            children.push(childComponent);
-                        }
-                    });
-                }
-
-                if (children.length > 0) {
-                    component = _react2.default.cloneElement(component, { children: children });
-                }
-
-                aggregateStyle = (0, _lodash2.default)(aggregateStyle, style);
+                aggregateStyle = (0, _lodash4.default)(aggregateStyle, style);
             })();
         }
     });
 
     var style = (0, _lodash2.default)({}, aggregateStyle, inlineStyle || {});
+
+    // Loop through any children and recursively apply matching styles
+    var children = [];
+    if ((0, _lodash6.default)(style).length > 0) {
+        _react2.default.Children.map(component.props.children, function (childComponent, index) {
+            if (_react2.default.isValidElement(childComponent)) {
+                children.push(applyStyles(childComponent, style, reactInstance, nodeKey, index));
+            } else if (typeof childComponent === 'string') {
+                children.push(childComponent);
+            }
+        });
+    }
+
+    if (children.length > 0) {
+        component = _react2.default.cloneElement(component, { children: children });
+    }
+
     component = _react2.default.cloneElement(component, (0, _lodash2.default)(aggregateProps, { style: style }));
 
     return component;
