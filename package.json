@@ -8,11 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kakushin-tools/react-recess.git"
+    "url": "git+https://github.com/kakushin-labs/recess.git"
   },
   "keywords": [
     "recess",
     "SCSS",
+    "SASS",
+    "css",
+    "inline-styles",
     "React",
     "inline",
     "styles",
@@ -21,9 +24,9 @@
   "author": "Nic Barker",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kakushin-tools/react-recess/issues"
+    "url": "https://github.com/kakushin-labs/recess/issues"
   },
-  "homepage": "https://github.com/kakushin-tools/react-recess#readme",
+  "homepage": "https://github.com/kakushin-labs/recess#readme",
   "dependencies": {
     "lodash.assignin": "^4.1.0",
     "lodash.foreach": "^4.4.1",
