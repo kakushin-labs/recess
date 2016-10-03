@@ -28,7 +28,7 @@ var _lodash7 = require('lodash.foreach');
 
 var _lodash8 = _interopRequireDefault(_lodash7);
 
-var _lodash9 = require('lodash.isEqual');
+var _lodash9 = require('lodash.isequal');
 
 var _lodash10 = _interopRequireDefault(_lodash9);
 
