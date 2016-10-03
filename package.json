@@ -1,6 +1,6 @@
 {
   "name": "react-recess",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Use SCSS like syntax to write React inline styles.",
   "main": "./recess.js",
   "scripts": {
