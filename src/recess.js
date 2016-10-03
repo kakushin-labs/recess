@@ -10,7 +10,7 @@ import extend from 'lodash.assignin'
 import merge from 'lodash.merge'
 import keys from 'lodash.keys'
 import each from 'lodash.foreach'
-import isEqual from 'lodash.isEqual'
+import isequal from 'lodash.isequal'
 
 const applyStyles = function (component, styles, reactInstance, parentNodeKey, childIndex = 0) {
     let styleKeys = [ component.type ];
@@ -61,7 +61,7 @@ const applyStyles = function (component, styles, reactInstance, parentNodeKey, c
 
                 if (reactInstance.state && reactInstance.state.recessRuntimeStyles && reactInstance.state.recessRuntimeStyles[`${nodeKey}_hover`]) {
                     // If the state has changed, update the hover style even if the mouse hasn't exited
-                    if (!isEqual(reactInstance.state.recessRuntimeStyles[nodeKey + '_hover'], style[':hover'])) {
+                    if (!isequal(reactInstance.state.recessRuntimeStyles[nodeKey + '_hover'], style[':hover'])) {
                         reactInstance.state.recessRuntimeStyles[nodeKey + '_hover'] = style[':hover'];
                     }
                     style = extend({}, style, reactInstance.state.recessRuntimeStyles[`${nodeKey}_hover`]);
