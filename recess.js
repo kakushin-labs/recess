@@ -28,10 +28,21 @@ var _lodash7 = require('lodash.foreach');
 
 var _lodash8 = _interopRequireDefault(_lodash7);
 
+var _lodash9 = require('lodash.isEqual');
+
+var _lodash10 = _interopRequireDefault(_lodash9);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// -------------------------------------------------------------
+// Recess - SCSS like styling syntax in React
+// A small Javascript library that allows you to use nested syntax,
+// dynamic inclusion of additional styles as well as :hover and :active
+// pseudo selectors with React.js inline styles.
+// -------------------------------------------------------------
+
 var applyStyles = function applyStyles(component, styles, reactInstance, parentNodeKey) {
-    var childIndex = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
+    var childIndex = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
 
     var styleKeys = [component.type];
     if (component.props.className) {
@@ -88,6 +99,10 @@ var applyStyles = function applyStyles(component, styles, reactInstance, parentN
                         });
 
                         if (reactInstance.state && reactInstance.state.recessRuntimeStyles && reactInstance.state.recessRuntimeStyles[nodeKey + '_hover']) {
+                            // If the state has changed, update the hover style even if the mouse hasn't exited
+                            if (!(0, _lodash10.default)(reactInstance.state.recessRuntimeStyles[nodeKey + '_hover'], style[':hover'])) {
+                                reactInstance.state.recessRuntimeStyles[nodeKey + '_hover'] = style[':hover'];
+                            }
                             style = (0, _lodash2.default)({}, style, reactInstance.state.recessRuntimeStyles[nodeKey + '_hover']);
                         }
                     })();
@@ -151,9 +166,4 @@ var applyStyles = function applyStyles(component, styles, reactInstance, parentN
     component = _react2.default.cloneElement(component, (0, _lodash2.default)(aggregateProps, { style: style }));
 
     return component;
-}; // -------------------------------------------------------------
-// Recess - SCSS like styling syntax in React
-// A small Javascript library that allows you to use nested syntax,
-// dynamic inclusion of additional styles as well as :hover and :active
-// pseudo selectors with React.js inline styles.
-// -------------------------------------------------------------
+};

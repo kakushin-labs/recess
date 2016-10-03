@@ -30,6 +30,7 @@
   "dependencies": {
     "lodash.assignin": "^4.1.0",
     "lodash.foreach": "^4.4.1",
+    "lodash.isequal": "^4.4.0",
     "lodash.keys": "^4.0.8",
     "lodash.merge": "^4.5.1",
     "react": "^15.3.0"
